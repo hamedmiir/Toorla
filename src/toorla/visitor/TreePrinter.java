@@ -1,5 +1,7 @@
 package toorla.visitor;
 
+import java.util.ArrayList;
+
 import toorla.ast.Program;
 import toorla.ast.declaration.classDecs.ClassDeclaration;
 import toorla.ast.declaration.classDecs.EntryClassDeclaration;
@@ -18,8 +20,16 @@ import toorla.ast.statement.*;
 import toorla.ast.statement.localVarStats.LocalVarDef;
 import toorla.ast.statement.localVarStats.LocalVarsDefinitions;
 import toorla.ast.statement.returnStatement.Return;
+import toorla.symbolTable.SymbolTable;
+import toorla.symbolTable.symbolTableItem.SymbolTableItem;
 
 public class TreePrinter implements Visitor<Void> {
+    ArrayList<Error> errors = new ArrayList<Error>();
+    SymbolTable programSymTable;
+    Program program;
+    SymbolTableItem currentSymItem = null;
+    ClassDeclaration currenClassDeclaration = null;
+    
     @Override
     public Void visit(PrintLine printLine) {
         System.out.print("(print ");
